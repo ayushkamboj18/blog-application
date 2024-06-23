@@ -7,6 +7,8 @@ import { toast } from 'react-toastify';
 
 
 function Signin() {
+  const REACT_APP_API_KEY = process.env.REACT_APP_API;
+
   const navigate = useNavigate();
   const { login } = useAuth();
   const [formdata, setformdata] = useState({
@@ -20,7 +22,7 @@ function Signin() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try{
-      const result = await axios.post('http://localhost:5000/login', formdata)
+      const result = await axios.post(`${REACT_APP_API_KEY}/login`, formdata)
       if (result.status === 200) {
         const userdata = result.data.user.name;
         login(userdata);

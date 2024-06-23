@@ -5,6 +5,8 @@ import { toast } from 'react-toastify';
 
 
 function Signup() {
+  const REACT_APP_API_KEY = process.env.REACT_APP_API;
+
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
@@ -17,7 +19,7 @@ function Signup() {
   const handleSubmit = (e) => {
     e.preventDefault();
     try{
-    axios.post('http://localhost:5000/register',formData)
+    axios.post(`${REACT_APP_API_KEY}/register`,formData)
     {
       notifySuccess();
       navigate('/signin')

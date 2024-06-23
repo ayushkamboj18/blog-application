@@ -6,6 +6,7 @@ import { AuthProvider } from "./AuthContext";
 import "./index.css";
 import 'react-toastify/dist/ReactToastify.css';
 
+
 const rootElement = document.getElementById("root");
 const root = ReactDOM.createRoot(rootElement);
 

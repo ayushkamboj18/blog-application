@@ -4,6 +4,8 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 const UpdateBlogPost = () => {
+  const REACT_APP_API_KEY = process.env.REACT_APP_API;
+
   const location = useLocation();
   const navigate = useNavigate();
   const { title: previousTitle } = location.state || {};
@@ -16,7 +18,7 @@ const UpdateBlogPost = () => {
   useEffect(() => {
     const fetchBlogData = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/blog`, {
+        const response = await axios.get(`${REACT_APP_API_KEY}/blog`, {
           params: { title: previousTitle }
         });
         setFormData(response.data);
@@ -42,7 +44,7 @@ const UpdateBlogPost = () => {
       content: formData.content
     };
     try {
-      const result = await axios.post("http://localhost:5000/update", updatedData);
+      const result = await axios.post(`${REACT_APP_API_KEY}/update`, updatedData);
       if (result.data === "success") {
         toast.success("Blog updated successfully!");
         navigate("/");

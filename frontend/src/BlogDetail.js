@@ -6,7 +6,9 @@ import { useAuth } from "./AuthContext";
 import { useNavigate } from 'react-router-dom';
 import { ShimmerSectionHeader } from "react-shimmer-effects";
 
+
 function BlogList() {
+  const REACT_APP_API_KEY = process.env.REACT_APP_API;
   const navigate = useNavigate();
   const { id } = useParams();
   const {user} = useAuth();
@@ -21,7 +23,7 @@ function BlogList() {
 
   const fetchBlog = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/blogs/${id}`);
+      const response = await axios.get(`${REACT_APP_API_KEY}/blogs/${id}`);
       setBlogs(response.data);
     } catch (error) {
       console.error("Error fetching blog:", error);
@@ -30,7 +32,7 @@ function BlogList() {
 
   const fetchComments = async () => {
     try {
-      const response = await axios.get(`http://localhost:5000/blogs/${id}/comments`);
+      const response = await axios.get(`${REACT_APP_API_KEY}/blogs/${id}/comments`);
       setComments(response.data);
     } catch (error) {
       console.error("Error fetching comments:", error);
@@ -46,7 +48,7 @@ function BlogList() {
     e.preventDefault();
     try {
       if(user){
-        await axios.post(`http://localhost:5000/blogs/${id}/comments`, newComment);
+        await axios.post(`${REACT_APP_API_KEY}/blogs/${id}/comments`, newComment);
         fetchComments(); // Refresh comments
       }
       else{

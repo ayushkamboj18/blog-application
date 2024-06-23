@@ -7,6 +7,8 @@ import { GrUpdate } from "react-icons/gr";
 import { toast } from 'react-toastify';
 
 const Profile = () => {
+  const REACT_APP_API_KEY = process.env.REACT_APP_API;
+
   const { user } = useAuth();
   const [profile, setProfile] = useState({
     name: '',
@@ -18,7 +20,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/profile', {
+        const response = await axios.get(`${REACT_APP_API_KEY}/profile`, {
           params: { user }
         });
         setProfile(response.data);
@@ -29,7 +31,7 @@ const Profile = () => {
 
     const fetchHistory = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/history', {
+        const response = await axios.get(`${REACT_APP_API_KEY}/history`, {
           params: { user }
         });
         setBlogHistory(response.data);
@@ -46,7 +48,7 @@ const Profile = () => {
 
   const handleDelete = async (title) => {
     try {
-      await axios.delete('http://localhost:5000/delete', { data: { title } });
+      await axios.delete(`${REACT_APP_API_KEY}/delete`, { data: { title } });
       notifySuccess();
       setBlogHistory(blogHistory.filter(blog => blog.title !== title));
     } catch (error) {

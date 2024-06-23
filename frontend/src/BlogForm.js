@@ -5,6 +5,8 @@ import { useAuth } from "./AuthContext";
 import { toast } from "react-toastify";
 
 function BlogForm() {
+  const REACT_APP_API_KEY = process.env.REACT_APP_API;
+
   const navigate = useNavigate();
   const {user} = useAuth()
 
@@ -29,7 +31,7 @@ function BlogForm() {
     e.preventDefault();
     console.log(formData);
     axios
-      .post("http://localhost:5000/new", formData)
+      .post(`${REACT_APP_API_KEY}/new`, formData)
       .then((result) => {
         if (result.data === "success") {
           console.log("successfully published");
